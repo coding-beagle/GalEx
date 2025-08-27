@@ -1,113 +1,45 @@
-# Raylib-Quickstart
-A simple cross platform template for setting up a project with the bleeding edge raylib code.
-Works with C or C++.
+# Space Economy Simulation
 
-## Supported Platforms
-Quickstart supports the main 3 desktop platforms:
-* Windows
-* Linux
-* MacOS
+The aim of this repo is to create a somewhat emergent space economy simulation game - a.la Dwarf Fortress but in space.
 
-# Naming projects
-Do not name your game project 'raylib', it will conflict with the raylib library.
+## The rules
 
-# VSCode Users (all platforms)
-*Note* You must have a compiler toolchain installed in addition to vscode.
+The game board is an arbitrary grid of nodes that represent solar systems. Each solar system has a number of entities inside.
 
-* Download the quickstart
-* Rename the folder to your game name
-* Open the folder in VSCode
-* Run the build task ( CTRL+SHIFT+B or F5 )
-* You are good to go
+An entity is defined as a resource producer or consumer. This could be a highly advanced space manufacturing station that consumes highly advanced intermediates in order to produce luxury goods, or it could be an asteroid mining operation that supplies raw ores. It could be a farming planet with low development that provides food to its neighbours.
 
-# Windows Users
-There are two compiler toolchains available for windows, MinGW-W64 (a free compiler using GCC), and Microsoft Visual Studio
-## Using MinGW-W64
-* Double click the `build-MinGW-W64.bat` file
-* CD into the folder in your terminal
-  * if you are usiing the W64devkit and have not added it to your system path environment variable, you must use the W64devkit.exe terminal, not CMD.exe
-  * If you want to use cmd.exe or any other terminal, please make sure that gcc/mingw-W64 is in your path environment variable.
-* run `make`
-* You are good to go
+The idea is that the game board is initialised with a random set of parameters, e.g. each system and entity with a different specialisation, etc.
 
-### Note on MinGW-64 versions
-Make sure you have a modern version of MinGW-W64 (not mingw).
-The best place to get it is from the W64devkit from
-https://github.com/skeeto/w64devkit/releases
-or the version installed with the raylib installer
-#### If you have installed raylib from the installer
-Make sure you have added the path
+A number of trading corporations seek to distribute and move goods between systems and entities. You play as one of them.
 
-`C:\raylib\w64devkit\bin`
+Beware! Pirate entities create black market areas and areas of high trading risk. This could shoot up the price of goods if you choose to trade in this area, but could also mean a higher risk on losing trading vessels.
 
-To your path environment variable so that the compiler that came with raylib can be found.
+## The aim
 
-DO NOT INSTALL ANOTHER MinGW-W64 from another source such as msys2, you don't need it.
+There isn't much to do other than to explore how your actions can impact the galaxy around you. You could choose to be a cunning business empire, out-competing other trade companies on the price of luxury goods, or you could choose to serve an under represented community of aliens.
 
-## Microsoft Visual Studio
-* Run `build-VisualStudio2022.bat`
-* double click the `.sln` file that is generated
-* develop your game
-* you are good to go
+Part of the fun will be in impulse responses - the game is a big cause and effect engine.
 
-# Linux Users
-* CD into the build folder
-* run `./premake5 gmake`
-* CD back to the root
-* run `make`
-* you are good to go
+## Technical details
 
-# MacOS Users
-* CD into the build folder
-* run `./premake5.osx gmake`
-* CD back to the root
-* run `make`
-* you are good to go
+The game is written in C via Raylib.
 
-# Output files
-The built code will be in the bin dir
+Each entity has these parameters:
 
-# Working directories and the resources folder
-The example uses a utility function from `path_utils.h` that will find the resources dir and set it as the current working directory. This is very useful when starting out. If you wish to manage your own working directory you can simply remove the call to the function and the header.
+- Development Index (0.0 - 1.0) : A measure of how developed the entity is. More developed entities want more luxury goods, are less capable of manufacturing and growing their own food.
+- Raw resource abundance:
+  - A list of (0.0 - 1.0) per resource that can be harvested from the entity. E.g. a tropical farm world might have 1.0 abundance on raw food ingredients, a mining world has 1.0 abundance on ores.
+- Population (int):
+  - A scalar / multiplier for raw resource abundance. Each number could represent 1,000,000 actual people, etc.
+- Resource consumption:
+  - A list of (0.0 - 1.0) per resource that the entity needs.
+  - Could be scaled by population.
+- Wealth (int)
+  - An arbitrary number of currency that represents the entity's ability to purchase goods.
 
-# Changing to C++
-Simply rename `src/main.c` to `src/main.cpp` and re-run the steps above and do a clean build.
+Each entity will seek to match its resource consumption through trade, using its wealth to buy and sell from traders.
 
-# Using your own code
-Simply remove `src/main.c` and replace it with your code, and re-run the steps above and do a clean build.
+Supply and demand laws apply - if an underserved system is in need of resources, they are willing to pay more than the market rate, and if there's a high supply, then prices will be low.
 
-# Building for other OpenGL targets
-If you need to build for a different OpenGL version than the default (OpenGL 3.3) you can specify an OpenGL version in your premake command line. Just modify the bat file or add the following to your command line
+Pirate entities seek to plunder trade ships. Trade ships moving into areas of high piracy could be at risk of losing cargo - or getting destroyed. Send a combat escort to ensure goods reach places - but these will cost money!
 
-## For OpenGL 1.1
-`--graphics=opengl11`
-
-## For OpenGL 2.1
-`--graphics=opengl21`
-
-## For OpenGL 4.3
-`--graphics=opengl43`
-
-## For OpenGLES 2.0
-`--graphics=opengles2`
-
-## For OpenGLES 3.0
-`--graphics=opengles3`
-
-# License
-Copyright (c) 2020-2025 Jeffery Myers
-
-This software is provided "as-is", without any express or implied warranty. In no event 
-will the authors be held liable for any damages arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose, including commercial 
-applications, and to alter it and redistribute it freely, subject to the following restrictions:
-
-  1. The origin of this software must not be misrepresented; you must not claim that you 
-  wrote the original software. If you use this software in a product, an acknowledgment 
-  in the product documentation would be appreciated but is not required.
-
-  2. Altered source versions must be plainly marked as such, and must not be misrepresented
-  as being the original software.
-
-  3. This notice may not be removed or altered from any source distribution.

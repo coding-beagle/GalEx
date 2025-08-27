@@ -7,5 +7,12 @@
 		"**/.DS_Store": true,
 		"**/*.o": true,
 		"**/*.exe": true,
+	},
+	"files.associations": {
+		"resource_dir.h": "c",
+		"vector2utils.h": "c",
+		"playership.h": "c",
+		"cmath": "c",
+		"raylib.h": "c"
 	}
 }
