@@ -13,6 +13,7 @@
 		"vector2utils.h": "c",
 		"playership.h": "c",
 		"cmath": "c",
-		"raylib.h": "c"
+		"raylib.h": "c",
+		"cstdlib": "c"
 	}
 }

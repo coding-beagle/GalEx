@@ -5,6 +5,10 @@ enum FLOW_TYPES {
     PRODUCTION, CONSUMPTION, TRADE_IN, TRADE_OUT
 };
 
+enum RESOURCES {
+    AGRICULTURE, ORES, REFINED_GOODS, LUXURY_GOODS, CREDITS
+};
+
 struct ResourceFlow {
     int ResourceID;
     float FlowRate;        // Positive = production/income, Negative = consumption/expense
