@@ -1,36 +1,36 @@
 #ifndef CUSTOM_TYPES_H
 #define CUSTOM_TYPES_H
 
-enum FLOW_TYPES {
+typedef enum {
     PRODUCTION, CONSUMPTION, TRADE_IN, TRADE_OUT
-};
+} FLOW_TYPES;
 
-enum RESOURCES {
+typedef enum {
     AGRICULTURE, ORES, REFINED_GOODS, LUXURY_GOODS, CREDITS
-};
+} RESOURCES;
 
-struct ResourceFlow {
+typedef struct ResourceFlow {
     int ResourceID;
     float FlowRate;        // Positive = production/income, Negative = consumption/expense
     float UnitCost;        // Cost per unit (positive for expenses, negative for income)
     int CounterpartyID;    // Who you're trading with (0 for internal production/consumption)
     int FlowType;          // PRODUCTION, CONSUMPTION, TRADE_IN, TRADE_OUT
-};
+} ResourceFlow;
 
-struct ResourceFlowVector {
+typedef struct ResourceFlowVector {
     ResourceFlow ** flows;  
     int FlowCount;
-};
+} ResourceFlowVector;
 
-struct ResourceCapacity {
+typedef struct ResourceCapacity {
     int ResourceID;
     int StoredQuantity;
-};
+} ResourceCapacity;
 
-struct ResourceCapacityVector {
+typedef struct ResourceCapacityVector {
     ResourceCapacity ** capacity;  
     int ResourceTypeCount;
-};
+} ResourceCapacityVector;
 
 struct System {
     int SystemID;
@@ -44,9 +44,9 @@ void free_resource_flow_vector(ResourceFlowVector* vector);
 
 void add_resource_flow(ResourceFlowVector* vector, ResourceFlow flow);
 
-void remove_resource_flow(ResourceFlowVector* vector, int index);
+void remove_resource_flow(ResourceFlowVector* vector, int resourceID);
 
-void resize_flow_vector(ResourceFlowVector* vector, int new_capacity);
+void DEBUG_print_resource_flow(ResourceFlowVector* vector, char* name);
 
 void init_resource_capacity_vector(ResourceCapacityVector* vector);
 
@@ -54,8 +54,6 @@ void free_resource_capacity_vector(ResourceCapacityVector* vector);
 
 void add_resource_capacity(ResourceCapacityVector* vector, ResourceCapacity flow);
 
-void remove_resource_capacity(ResourceCapacityVector* vector, int index);
-
-void resize_resource_capacity(ResourceCapacityVector* vector, int new_capacity);
+void remove_resource_capacity(ResourceCapacityVector* vector, int resourceID);
 
 #endif

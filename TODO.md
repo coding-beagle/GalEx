@@ -1,0 +1,9 @@
+- [x] Character Ship Movement Engine
+- [x] Create and test custom types
+  - [x] ResourceFlowVector
+    - [x] API methods to dynamically handle addition of resource flows
+    - [x] Clean up methods work properly
+  - [x] ResourceCapacityVector
+    - [x] API methods to dynamically handle addition of resource capacities
+    - [x] Clean up methods work properly
+- [ ] Create and Test Entity Methods

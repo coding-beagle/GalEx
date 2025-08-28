@@ -12,6 +12,4 @@ typedef struct Ship_T {
 // draw a triangle centered at screen_pos with rotation rotation in rads
 void DrawShip(Ship_T* ship_inst);
 
-void HandleShipUpdate(Ship_T* ship_inst);
-
 #endif

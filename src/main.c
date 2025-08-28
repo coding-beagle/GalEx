@@ -9,11 +9,14 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "raylib.h"
 #include "stdio.h"
+#include "stdlib.h"
 #include "math.h"
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
+
 #include "vector2utils.h"
 #include "playership.h"
+#include "custom_types.h"
 
 
 #define SHIPSTART_X 500.0
@@ -30,7 +33,6 @@ int main ()
 
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
-
 
 	// Create the window and OpenGL context
 	InitWindow(1280, 800, "Hello Raylib");
@@ -60,18 +62,11 @@ int main ()
 			last_click_x = mouse_pos.x;
 			last_click_y = mouse_pos.y;
 			ship_rotation = atan2((ship_pos_y - last_click_y), (ship_pos_x - last_click_x)) - 3.141562 / 2;
-
 		}
 
-		// sprintf(char_buff, "Last Click x,y = %lf, %lf", last_click_x, last_click_y);
-		// DrawText(char_buff, 0,30,20, WHITE);
-
-		// sprintf(char_buff, "Ship Pos x,y = %lf, %lf", char_ship.ShipPos.x, char_ship.ShipPos.y);
-		// DrawText(char_buff, 0,60,20, WHITE);
-
-		if(last_click_x > -0.5 && last_click_y > -0.5){
-			DrawCircle((int)last_click_x, (int)last_click_y, 2, WHITE);
-		}
+		// if(last_click_x > -0.5 && last_click_y > -0.5){
+		// 	DrawCircle((int)last_click_x, (int)last_click_y, 2, WHITE);
+		// }
 
 		if(fabs(ship_pos_x - last_click_x) > 2.0 && last_click_x > -0.5) {
     		ship_pos_x -= 0.01f * (ship_pos_x - last_click_x);
