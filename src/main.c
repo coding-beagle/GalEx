@@ -50,33 +50,38 @@ int main ()
 		// draw some text using the default font
 
 		Vector2 mouse_pos = GetMousePosition();
-		
+
 		// char char_buff[20];
 		// sprintf(char_buff, "Mouse x,y = %lf, %lf", mouse_pos.x, mouse_pos.y);
 		// DrawText(char_buff, 0,0,20, WHITE);
 
-		ship_rotation = atan2((ship_pos_y - last_click_y), (ship_pos_x - last_click_x)) - 3.141562 / 2;
 
 		if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)){
 			last_click_x = mouse_pos.x;
 			last_click_y = mouse_pos.y;
+			ship_rotation = atan2((ship_pos_y - last_click_y), (ship_pos_x - last_click_x)) - 3.141562 / 2;
+
 		}
 
-		sprintf(char_buff, "Last Click x,y = %lf, %lf", last_click_x, last_click_y);
-		DrawText(char_buff, 0,30,20, WHITE);
+		// sprintf(char_buff, "Last Click x,y = %lf, %lf", last_click_x, last_click_y);
+		// DrawText(char_buff, 0,30,20, WHITE);
 
-		sprintf(char_buff, "Ship Pos x,y = %lf, %lf", char_ship.ShipPos.x, char_ship.ShipPos.y);
-		DrawText(char_buff, 0,60,20, WHITE);
+		// sprintf(char_buff, "Ship Pos x,y = %lf, %lf", char_ship.ShipPos.x, char_ship.ShipPos.y);
+		// DrawText(char_buff, 0,60,20, WHITE);
 
 		if(last_click_x > -0.5 && last_click_y > -0.5){
-			DrawCircle((int)last_click_x, (int)last_click_y, 5, WHITE);
+			DrawCircle((int)last_click_x, (int)last_click_y, 2, WHITE);
 		}
 
-		if(fabs(ship_pos_x - last_click_x) > 2.0) {
+		if(fabs(ship_pos_x - last_click_x) > 2.0 && last_click_x > -0.5) {
     		ship_pos_x -= 0.01f * (ship_pos_x - last_click_x);
 		}
-		if(fabs(ship_pos_y - last_click_y) > 2.0) {
+		if(fabs(ship_pos_y - last_click_y) > 2.0 && last_click_x > -0.5) {
 		    ship_pos_y -= 0.01f * (ship_pos_y  - last_click_y);
+		}
+		if(fabs(ship_pos_x - last_click_x) < 2.0 && fabs(ship_pos_y - last_click_y) < 2.0){
+			last_click_x = -0.5;
+			last_click_y = -0.5;
 		}
 
 		char_ship.ShipPos = (Vector2){ship_pos_x, ship_pos_y};
