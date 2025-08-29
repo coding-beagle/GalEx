@@ -17,6 +17,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "vector2utils.h"
 #include "playership.h"
 #include "custom_types.h"
+#include "entity.h"
 
 
 #define SHIPSTART_X 500.0
@@ -30,6 +31,20 @@ int main ()
 	double ship_rotation = 0.0;
 
 	Ship_T char_ship;
+
+	EntityData_T entity;
+
+	System test_system;
+
+	test_system.SystemID = 1;
+	test_system.SystemX = 22;
+	test_system.SystemY = 18;
+
+	init_entity(&entity, "Thailand", 0, test_system, 0.5);
+
+	DEBUG_print_entity_stats(&entity);
+
+	exit(0);
 
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);

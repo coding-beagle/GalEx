@@ -39,7 +39,7 @@ void add_resource_flow(ResourceFlowVector* vector, ResourceFlow flow) {
     }
 }
 
-void remove_resource_flow(ResourceFlowVector* vector, int resourceID){
+void remove_resource_flow(ResourceFlowVector* vector, RESOURCES resourceID){
     for(int i = 0; i < vector->FlowCount; i++){
         if((*vector->flows)[i].ResourceID == resourceID){
             // Shift remaining elements
@@ -85,7 +85,7 @@ void free_resource_capacity_vector(ResourceCapacityVector* vector){
     vector -> ResourceTypeCount = 0;
 }
 
-void add_resource_capacity(ResourceCapacityVector* vector, ResourceCapacity flow){
+void add_resource_capacity(ResourceCapacityVector* vector, ResourceCapacity res_capacity){
     if(vector->capacity == NULL){
         printf("Flow is nullptr, allocating %d\n", sizeof(ResourceCapacity*));
         vector->capacity = malloc(sizeof(ResourceFlow*));
@@ -102,7 +102,7 @@ void add_resource_capacity(ResourceCapacityVector* vector, ResourceCapacity flow
         // Allocate memory for the new capacity and copy it
         vector->capacity[vector->ResourceTypeCount] = malloc(sizeof(ResourceCapacity));
         if (vector->capacity[vector->ResourceTypeCount] != NULL) {
-            *(vector->capacity[vector->ResourceTypeCount]) = flow;
+            *(vector->capacity[vector->ResourceTypeCount]) = res_capacity;
             vector->ResourceTypeCount++;
         }
     } else {
@@ -110,7 +110,16 @@ void add_resource_capacity(ResourceCapacityVector* vector, ResourceCapacity flow
     }
 }
 
-void remove_resource_capacity(ResourceCapacityVector* vector, int resourceID){
+int check_resource_in_capacity(ResourceCapacityVector* vector, RESOURCES resourceID){
+    for(int i = 0; i<vector->ResourceTypeCount; i++){
+        if(resourceID == vector->capacity[i]->ResourceID){
+            return i;
+        }
+    }
+    return -1;
+}
+
+void remove_resource_capacity(ResourceCapacityVector* vector, RESOURCES resourceID){
     for(int i = 0; i < vector->ResourceTypeCount; i++){
         if((*vector->capacity)[i].ResourceID == resourceID){
             // Shift remaining elements
@@ -128,5 +137,28 @@ void remove_resource_capacity(ResourceCapacityVector* vector, int resourceID){
             }
             return;  // Found and removed, exit
         }
+    }
+}
+
+void flow_type_to_text_buffer(char* buff, FLOW_TYPES flow_type){
+    switch(flow_type){
+            case PRODUCTION: snprintf(buff, 12, "PRODUCTION"); break;
+            case CONSUMPTION: snprintf(buff, 13, "CONSUMPTION"); break;
+            case TRADE_IN: snprintf(buff, 10, "TRADE_IN"); break;
+            case TRADE_OUT: snprintf(buff, 11, "TRADE_OUT"); break;
+            default: snprintf(buff, 9, "UNKNOWN"); break;
+    }
+}
+
+void resourceID_to_text_buffer(char* buff, RESOURCES resourceID){
+    //    AGRICULTURE, ORES, REFINED_GOODS, LUXURY_GOODS, CREDITS, POPULATION
+    switch(resourceID){
+            case AGRICULTURE: snprintf(buff, 13, "AGRICULTURE"); break;
+            case ORES: snprintf(buff, 6, "ORES"); break;
+            case REFINED_GOODS: snprintf(buff, 14, "REFINED_GOODS"); break;
+            case LUXURY_GOODS: snprintf(buff, 14, "LUXURY_GOODS"); break;
+            case CREDITS: snprintf(buff, 9, "REFINED_GOODS"); break;
+            case POPULATION: snprintf(buff, 12, "POPULATION"); break;
+            default: snprintf(buff, 9, "UNKNOWN"); break;
     }
 }

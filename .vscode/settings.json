@@ -15,6 +15,7 @@
 		"cmath": "c",
 		"raylib.h": "c",
 		"cstdlib": "c",
-		"custom_types.h": "c"
+		"custom_types.h": "c",
+		"entity.h": "c"
 	}
 }

@@ -3,8 +3,9 @@
 
 #include "raylib.h"
 #include "custom_types.h"
+#include "stdio.h"
 
-struct EntityData_T
+typedef struct EntityData_T
 {
     char name[30];
     int ID;
@@ -17,14 +18,20 @@ struct EntityData_T
 
     // Entity Characteristics
     float DevelopmentIndex; // 0.0 - 1.0, dictates the demand for luxury + advanced resources
-    int Population;         // Logarithmic scalar for resource flows
-    int Wealth;             // How much money this entity has
-};
+} EntityData_T;
 
-void entity_add_trade_flow(EntityData_T* entity, int resourceID, float rate, float price, int partner);
-int entity_get_resource_quantity(EntityData_T* entity, int resourceID);
+void init_entity(EntityData_T* entity, char* name, int ID, System system, float development);
+
+void cleanup_entity(EntityData_T* entity);
+
+void entity_add_trade_flow(EntityData_T* entity, RESOURCES resourceID, float rate, float price, int partner, FLOW_TYPES flow_type);
+
+// return -1 if not found
+int entity_get_resource_quantity(EntityData_T* entity, RESOURCES resourceID);
 
 void entity_process_flows(EntityData_T* entity);  // Apply flows to storage
+
+void DEBUG_print_entity_stats(EntityData_T* entity);
 
 
 #endif
